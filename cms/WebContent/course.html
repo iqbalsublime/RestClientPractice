@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+
+	var xhr;
+	
+	function makeCall(){
+		var url = "http://localhost:8080/cms/rest/courses/all";
+		xhr = new XMLHttpRequest();
+		xhr.open("GET", url, true);
+		xhr.setRequestHeader("Authorization","Bearer 8aa95dd727f4f7b8f77efe38d95b9d88");
+		xhr.setRequestHeader("Accept","application/json");
+		xhr.onreadystatechange = handleData;
+		xhr.send();
+	}
+	
+	function handleData(){
+		if(xhr.readyState == 4){
+			if(xhr.status == 200){
+				
+				var data =  xhr.responseText;
+				var div0 = document.getElementById("div0");
+				
+				data = eval('('+data+')');
+				
+				var h1 = document.createElement("h1");
+				h1.innerHTML = "Course ID --- "+data.id;
+				div0.appendChild(h1);
+				var h1 = document.createElement("h1");
+				h1.innerHTML = "Name  --- "+data.title;
+				div0.appendChild(h1);
+				var h1 = document.createElement("h1");
+				h1.innerHTML = "Price --- "+data.price;
+				div0.appendChild(h1);
+				var h1 = document.createElement("h1");
+				h1.innerHTML = "Duration --- "+data.duration;
+				div0.appendChild(h1);
+				
+			}
+		}
+		
+		
+	}
+
+</script>
+</head>
+<body>
+	<button onclick="makeCall()">SEND</button>
+	<br>
+	<div id='div0' style="border:40px solid blue;border-radius:20px;width:400px;margin:auto;background-color: gray;color: white">
+	
+	</div>
+</body>
+</html>
